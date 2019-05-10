@@ -55,6 +55,7 @@ import microsoft.exchange.webservices.data.core.request.HttpWebRequest;
 import microsoft.exchange.webservices.data.credential.ExchangeCredentials;
 import microsoft.exchange.webservices.data.misc.EwsTraceListener;
 import microsoft.exchange.webservices.data.misc.ITraceListener;
+import microsoft.exchange.webservices.data.property.complex.time.TimeZoneDefinition;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
@@ -140,6 +141,11 @@ public abstract class ExchangeServiceBase implements Closeable {
    */
   private ExchangeServerInfo serverInfo;
 
+  /**
+   * The time zone definition.
+   */
+  private TimeZoneDefinition timeZoneDefinition;
+  
   private Map<String, String> httpHeaders = new HashMap<String, String>();
 
   private Map<String, String> httpResponseHeaders = new HashMap<String, String>();
@@ -809,6 +815,24 @@ public abstract class ExchangeServiceBase implements Closeable {
    */
   public Map<String, String> getHttpHeaders() {
     return this.httpHeaders;
+  }
+  
+  /**
+   * Gets time zone definition in EWS.
+   *
+   * @return timeZoneDefinition
+   */
+  public TimeZoneDefinition getTimeZoneDefinition() {
+    return this.timeZoneDefinition;
+  }
+  
+  /**
+   * Sets time zone definition in EWS, this value will attaches to the request header as TimeZoneContext.
+   *
+   * @param timeZoneDefinition
+   */
+  public void setTimeZoneDefinition(TimeZoneDefinition timeZoneDefinition) {
+    this.timeZoneDefinition = timeZoneDefinition;
   }
 
   // Events
