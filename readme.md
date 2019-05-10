@@ -29,5 +29,4 @@ To build a JAR from the source yourself, please see [this page](https://github.c
 This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/). For more information, see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
 
 ### Issue
-由于在项目中遇到发送日历时，日历内容使用了UTC时间，导致用户错误以为日历
-时间有误，发现C#中不会出现该问题，后来比对报文得知Java版本中没有TimeZoneContext内容，故fork出来添加TimeZoneContext，经编译测试后问题解决。
+由于在项目中遇到发送日历时，日历内容使用了UTC时间，导致用户错误以为日历时间有误，发现C#中不会出现该问题，后来比对报文得知Java版本中没有TimeZoneContext内容，故fork出来添加TimeZoneContext，经编译测试后问题解决。
