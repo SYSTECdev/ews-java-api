@@ -45,6 +45,7 @@ import microsoft.exchange.webservices.data.core.exception.service.local.ServiceX
 import microsoft.exchange.webservices.data.core.exception.service.local.ServiceXmlSerializationException;
 import microsoft.exchange.webservices.data.core.exception.xml.XmlException;
 import microsoft.exchange.webservices.data.misc.SoapFaultDetails;
+import microsoft.exchange.webservices.data.property.complex.time.TimeZoneDefinition;
 import microsoft.exchange.webservices.data.security.XmlNodeType;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
@@ -213,21 +214,13 @@ public abstract class ServiceRequestBase<T> {
     writer.writeStartElement(XmlNamespace.Types, XmlElementNames.RequestServerVersion);
     writer.writeAttributeValue(XmlAttributeNames.Version, this.getRequestedServiceVersionString());
     writer.writeEndElement(); // RequestServerVersion
-
-		/*
-                 * if ((this.getService().getRequestedServerVersion().ordinal() ==
-		 * ExchangeVersion.Exchange2007_SP1.ordinal() ||
-		 * this.EmitTimeZoneHeader()) &&
-		 * (!this.getService().getExchange2007CompatibilityMode())) {
-		 * writer.writeStartElement(XmlNamespace.Types,
-		 * XmlElementNames.TimeZoneContext);
-		 * 
-		 * this.getService().TimeZoneDefinition().WriteToXml(writer);
-		 * 
-		 * writer.WriteEndElement(); // TimeZoneContext
-		 * 
-		 * writer.IsTimeZoneHeaderEmitted = true; }
-		 */
+	  
+    // Emit the TimeZoneContext header
+    if (this.service.getTimeZoneDefinition() != null) {
+      writer.writeStartElement(XmlNamespace.Types, XmlElementNames.TimeZoneContext);
+      this.service.getTimeZoneDefinition().writeToXml(writer, XmlElementNames.TimeZoneDefinition);
+      writer.writeEndElement(); // TimeZoneContext
+    }
 
     if (this.service.getPreferredCulture() != null) {
       writer.writeElementValue(XmlNamespace.Types, XmlElementNames.MailboxCulture,
